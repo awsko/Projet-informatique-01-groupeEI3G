@@ -1,90 +1,148 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="theme-color" content="#07111f">
-	<title>Azure Run — Le défi des nuages</title>
-	<style>
-		:root{color-scheme:dark;--ink:#07111f;--blue:#72d7ff;--white:#f5fbff;--muted:#a9c1d3}
-		*{box-sizing:border-box}html,body{height:100%;margin:0;overflow:hidden;background:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--white)}
-		body{background:radial-gradient(ellipse at 75% 4%,#193956 0,transparent 42%),#07111f}
-		#game{position:fixed;inset:0;width:100%;height:100%;display:block}
-		.topbar{position:fixed;z-index:2;top:0;left:0;right:0;padding:24px clamp(18px,5vw,70px);display:flex;align-items:center;justify-content:space-between;pointer-events:none}
-		.brand{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.2em;font-weight:800;text-transform:uppercase}.brand-mark{width:34px;height:34px;border:1px solid #72d7ff88;border-radius:11px;display:grid;place-items:center;color:var(--blue);font-size:18px;background:#0a1a2a99;box-shadow:0 0 24px #72d7ff22}
-		.hud{display:flex;gap:10px}.chip{padding:9px 14px;border:1px solid #ffffff20;background:#081827b8;border-radius:99px;color:var(--muted);font-size:12px;backdrop-filter:blur(12px)}.chip b{color:var(--white);font-variant-numeric:tabular-nums}
-		.intro{position:fixed;z-index:2;left:clamp(24px,9vw,140px);top:50%;transform:translateY(-42%);max-width:470px;pointer-events:none;transition:opacity .4s,transform .4s}.intro.hidden{opacity:0;transform:translateY(-48%)}
-		.eyebrow{display:flex;align-items:center;gap:10px;color:var(--blue);font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:800}.eyebrow:before{content:"";width:24px;height:1px;background:var(--blue)}
-		h1{font-size:clamp(48px,8vw,92px);line-height:.91;letter-spacing:-.075em;margin:19px 0 18px;font-weight:850}h1 span{display:block;color:var(--blue)}.intro p{max-width:350px;color:#b5c8d6;line-height:1.7;font-size:14px;margin:0 0 25px}
-		.start{pointer-events:auto;border:0;border-radius:8px;background:var(--blue);color:#06111d;padding:14px 20px;font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 30px #72d7ff30;transition:transform .18s,box-shadow .18s}.start:hover{transform:translateY(-2px);box-shadow:0 12px 36px #72d7ff55}
-		.hint{display:block;margin-top:16px;color:#7993a8;font-size:11px;letter-spacing:.04em}.hint kbd{font-family:inherit;color:#dceaf3;border:1px solid #ffffff2a;border-radius:4px;padding:3px 6px;margin-right:3px}
-		.bottom{position:fixed;bottom:22px;left:clamp(18px,5vw,70px);right:clamp(18px,5vw,70px);display:flex;justify-content:space-between;align-items:end;color:#8da5b7;font-size:10px;letter-spacing:.12em;text-transform:uppercase;pointer-events:none}.progress{width:150px;height:3px;background:#ffffff20;border-radius:4px;margin-top:9px;overflow:hidden}.progress i{display:block;width:0;height:100%;background:var(--blue);transition:width .25s}
-		.mobile{display:none;position:fixed;z-index:3;bottom:28px;left:0;right:0;justify-content:space-between;padding:0 24px;pointer-events:none}.mobile button{pointer-events:auto;width:58px;height:58px;border:1px solid #ffffff35;border-radius:18px;background:#081827bb;color:white;font-size:22px;backdrop-filter:blur(12px);touch-action:none}.mobile .cluster{display:flex;gap:10px}.mobile .jump{width:76px;color:var(--blue);font-size:11px;font-weight:900;letter-spacing:.08em}
-		@media(max-width:700px){.topbar{padding-top:17px}.brand{font-size:10px}.chip{padding:8px 10px;font-size:10px}.intro{top:46%;left:8vw;max-width:84vw}.intro p{font-size:13px;max-width:300px}.bottom{bottom:108px}.mobile{display:flex}.hint{display:none}}
-		@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nom du jeu</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #d9efff;
+            color: #111;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            width: 85%;
+            max-width: 1000px;
+            height: 550px;
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Partie gauche : connexion */
+        .login {
+            width: 40%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .login p {
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        input {
+            padding: 14px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 15px;
+            background-color: #80caff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #111;
+            margin-top: 10px;
+        }
+
+        /* Partie droite : présentation */
+        .presentation {
+            width: 60%;
+            background-color: #a9ddff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .presentation h1 {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        .presentation p {
+            font-size: 17px;
+        }
+
+        .game-image {
+            font-size: 100px;
+            margin: 20px;
+        }
+
+        .footer {
+            font-size: 12px;
+            color: #555;
+            margin-top: 30px;
+        }
+
+    </style>
 </head>
+
 <body>
-	<canvas id="game" aria-label="Jeu de plateforme Azure Run"></canvas>
-	<header class="topbar">
-		<div class="brand"><span class="brand-mark">✦</span> Azure Run <span style="color:#7993a8;font-weight:500">/ 01</span></div>
-		<div class="hud"><div class="chip">ÉCLATS&nbsp; <b id="score">00</b></div><div class="chip">TEMPS&nbsp; <b id="timer">00:00</b></div></div>
-	</header>
-	<section class="intro" id="intro">
-		<div class="eyebrow">Le défi des nuages</div>
-		<h1>Prends<br>de la <span>hauteur.</span></h1>
-		<p>Saute de plateforme en plateforme, récupère les éclats de lumière et rejoins le portail au sommet.</p>
-		<button class="start" id="start">Jouer maintenant&nbsp; →</button>
-		<span class="hint"><kbd>←</kbd><kbd>→</kbd> se déplacer &nbsp; <kbd>Espace</kbd> sauter</span>
-	</section>
-	<div class="bottom"><div><span id="status">Prêt pour l’ascension</span><div class="progress"><i id="progress"></i></div></div><span>Un petit monde au-dessus des nuages</span></div>
-	<div class="mobile" aria-label="Commandes tactiles"><div class="cluster"><button id="left" aria-label="Aller à gauche">←</button><button id="right" aria-label="Aller à droite">→</button></div><button class="jump" id="jump">SAUT</button></div>
-	<script>
-	(()=>{
-		const canvas=document.getElementById('game'),ctx=canvas.getContext('2d');
-		const scoreEl=document.getElementById('score'),timerEl=document.getElementById('timer'),intro=document.getElementById('intro'),statusEl=document.getElementById('status'),progressEl=document.getElementById('progress');
-		let W=innerWidth,H=innerHeight,dpr=1,camera=0,active=false,won=false,elapsed=0,last=0,score=0;
-		const gravity=1750,worldWidth=2600;
-		const platforms=[{x:0,y:520,w:340},{x:405,y:455,w:170},{x:650,y:390,w:150},{x:875,y:475,w:175},{x:1135,y:375,w:175},{x:1400,y:445,w:170},{x:1660,y:355,w:185},{x:1935,y:425,w:180},{x:2200,y:340,w:310}];
-		const shards=[{x:455,y:407},{x:700,y:342},{x:930,y:427},{x:1185,y:327},{x:1450,y:397},{x:1720,y:307},{x:1995,y:377},{x:2290,y:292},{x:2380,y:292}];
-		const player={x:75,y:460,w:30,h:42,vx:0,vy:0,ground:false,face:1};
-		const keys={left:false,right:false};
-		let collected=new Set();
-		function resize(){W=innerWidth;H=innerHeight;dpr=Math.min(devicePixelRatio||1,2);canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
-		addEventListener('resize',resize);resize();
-		function start(){if(won)reset();active=true;intro.classList.add('hidden');statusEl.textContent='En pleine ascension';last=performance.now()}
-		function reset(){player.x=75;player.y=460;player.vx=player.vy=0;score=0;collected.clear();elapsed=0;won=false;scoreEl.textContent='00';progressEl.style.width='0%'}
-		document.getElementById('start').addEventListener('click',start);
-		addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','ArrowUp',' ','w','a','d'].includes(e.key))e.preventDefault();if(e.key==='ArrowLeft'||e.key==='a')keys.left=true;if(e.key==='ArrowRight'||e.key==='d')keys.right=true;if((e.key===' '||e.key==='ArrowUp'||e.key==='w')&&!e.repeat)jump();if(!active&&(e.key==='Enter'||e.key===' '))start()});
-		addEventListener('keyup',e=>{if(e.key==='ArrowLeft'||e.key==='a')keys.left=false;if(e.key==='ArrowRight'||e.key==='d')keys.right=false});
-		function bindHold(id,key){const el=document.getElementById(id);el.addEventListener('pointerdown',e=>{e.preventDefault();keys[key]=true;el.setPointerCapture(e.pointerId)});['pointerup','pointercancel','lostpointercapture'].forEach(ev=>el.addEventListener(ev,()=>keys[key]=false))}
-		bindHold('left','left');bindHold('right','right');document.getElementById('jump').addEventListener('pointerdown',e=>{e.preventDefault();jump()});
-		function jump(){if(!active){start();return}if(player.ground){player.vy=-690;player.ground=false}}
-		function update(dt){if(!active||won)return;elapsed+=dt;player.vx=(keys.right?1:0)-(keys.left?1:0);if(player.vx)player.face=Math.sign(player.vx);player.vx*=300;const oldBottom=player.y+player.h;player.x=Math.max(0,Math.min(worldWidth-player.w,player.x+player.vx*dt));player.vy+=gravity*dt;player.y+=player.vy*dt;player.ground=false;
-			if(player.vy>=0){for(const p of platforms){if(player.x+player.w>p.x&&player.x<p.x+p.w&&oldBottom<=p.y+5&&player.y+player.h>=p.y){player.y=p.y-player.h;player.vy=0;player.ground=true;break}}}
-			if(player.y>H+180){player.x=Math.max(30,player.x-120);player.y=260;player.vy=0}
-			shards.forEach((s,i)=>{if(!collected.has(i)&&Math.hypot(player.x+player.w/2-s.x,player.y+player.h/2-s.y)<30){collected.add(i);score++;scoreEl.textContent=String(score).padStart(2,'0')}});
-			camera=Math.max(0,Math.min(worldWidth-W,player.x-W*.36));progressEl.style.width=Math.min(100,player.x/(worldWidth-240)*100)+'%';
-			if(player.x>2310&&player.y<380){won=true;statusEl.textContent='Portail atteint !';intro.querySelector('.eyebrow').textContent='Défi réussi';intro.querySelector('h1').innerHTML='Bien joué<span> !</span>';intro.querySelector('p').textContent=`Tu as trouvé ${score} éclat${score>1?'s':''} de lumière. Prêt pour une nouvelle ascension ?`;document.getElementById('start').textContent='Rejouer  →';intro.classList.remove('hidden')}
-			const m=Math.floor(elapsed/60),s=Math.floor(elapsed%60);timerEl.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')
-		}
-		function rounded(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill()}
-		function draw(){ctx.clearRect(0,0,W,H);const sky=ctx.createLinearGradient(0,0,0,H);sky.addColorStop(0,'#0b1c2d');sky.addColorStop(.55,'#163955');sky.addColorStop(1,'#6dc8ed');ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
-			// Lointaines crêtes et étoiles
-			for(let i=0;i<42;i++){const x=((i*173-camera*.12)%(W+80)+W+80)%(W+80)-20,y=36+(i*71%Math.max(120,H*.6));ctx.fillStyle=`rgba(222,244,255,${.18+(i%4)*.08})`;ctx.beginPath();ctx.arc(x,y,i%3===0?1.5:1,0,Math.PI*2);ctx.fill()}
-			for(let layer=0;layer<2;layer++){ctx.beginPath();const base=H*(.7+layer*.09);ctx.moveTo(0,H);for(let x=0;x<=W+20;x+=20){const wx=x+camera*(.13+layer*.12);ctx.lineTo(x,base+Math.sin(wx*.008+layer*3)*34+Math.sin(wx*.021)*14)}ctx.lineTo(W,H);ctx.closePath();ctx.fillStyle=layer?'#9bdcf0':'#386b8d';ctx.globalAlpha=layer?.28:.28;ctx.fill();ctx.globalAlpha=1}
-			ctx.save();ctx.translate(-camera,0);
-			// Nuages décoratifs
-			for(let i=0;i<14;i++){const x=i*225+70,y=150+(i*83%220);ctx.fillStyle='#d9f3ff';ctx.globalAlpha=.12;rounded(x,y,78,8,5);rounded(x+18,y-8,43,9,5);ctx.globalAlpha=1}
-			platforms.forEach((p,i)=>{const depth=18;ctx.fillStyle='#10283a';ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x+p.w,p.y);ctx.lineTo(p.x+p.w+depth,p.y-depth);ctx.lineTo(p.x+depth,p.y-depth);ctx.closePath();ctx.fill();ctx.fillStyle='#122b3e';ctx.fillRect(p.x,p.y,p.w,depth);ctx.fillStyle='#72d7ff';ctx.fillRect(p.x,p.y,p.w,4);ctx.fillStyle='#f0fbff';ctx.globalAlpha=.8;ctx.fillRect(p.x+12,p.y+8,Math.max(20,p.w*.28),2);ctx.globalAlpha=1;if(i===platforms.length-1){ctx.fillStyle='#72d7ff';ctx.shadowColor='#72d7ff';ctx.shadowBlur=22;ctx.beginPath();ctx.ellipse(p.x+p.w-30,p.y-25,18,34,0,0,Math.PI*2);ctx.strokeStyle='#dff8ff';ctx.lineWidth=3;ctx.stroke();ctx.shadowBlur=0}});
-			shards.forEach((s,i)=>{if(collected.has(i))return;const bob=Math.sin(performance.now()*.003+i)*5;ctx.save();ctx.translate(s.x,s.y+bob);ctx.rotate(Math.PI/4);ctx.fillStyle='#f5fbff';ctx.shadowColor='#72d7ff';ctx.shadowBlur=16;ctx.fillRect(-6,-6,12,12);ctx.fillStyle='#72d7ff';ctx.fillRect(-3,-3,6,6);ctx.shadowBlur=0;ctx.restore()});
-			// Personnage stylisé
-			ctx.save();ctx.translate(player.x+player.w/2,player.y+player.h/2);ctx.scale(player.face,1);const bob=player.ground?Math.sin(performance.now()*.015)*1.5:0;ctx.translate(0,bob);ctx.fillStyle='#07111f';rounded(-12,5,24,17,6);ctx.fillStyle='#72d7ff';rounded(-11,-9,22,18,7);ctx.fillStyle='#f5fbff';rounded(-8,-19,16,14,6);ctx.fillStyle='#07111f';ctx.fillRect(2,-14,3,3);ctx.fillStyle='#fff';rounded(-13,-3,26,6,3);ctx.restore();ctx.restore();
-			// voile sombre sous le texte d’intro
-			if(!active){const fade=ctx.createLinearGradient(0,0,W*.78,0);fade.addColorStop(0,'rgba(4,12,22,.58)');fade.addColorStop(1,'rgba(4,12,22,0)');ctx.fillStyle=fade;ctx.fillRect(0,0,W,H)}
-		}
-		function frame(t){const dt=Math.min(.032,(t-last)/1000||0);last=t;update(dt);draw();requestAnimationFrame(frame)}requestAnimationFrame(frame);
-	})();
-	</script>
+
+    <div class="container">
+
+        <!-- Connexion -->
+        <div class="login">
+
+            <h2>Bienvenue !</h2>
+            <p>Entre tes informations pour commencer l'aventure.</p>
+
+            <input type="text" placeholder="Nom du joueur">
+
+            <input type="password" placeholder="Mot de passe">
+
+            <button>JOUER</button>
+
+            <div class="footer">
+                Prêt à relever le défi ?
+            </div>
+
+        </div>
+
+        <!-- Présentation du jeu -->
+        <div class="presentation">
+
+            <h1>Nom du jeu</h1>
+
+            <p>"description du jeu"</p>
+
+            <div class="game-image">
+                🕹️
+            </div>
+
+            <h2>phrase accrocheuse</h2>
+
+            <p>"description détaillée du jeu"</p>
+
+        </div>
+
+    </div>
+
 </body>
 </html>
